@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D0A07807-E46F-4699-92C2-C71C007E4A52}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MEMAPI_Debugger</RootNamespace>
+    <AssemblyName>MEMAPI Debugger</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SharpDisasm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDisasm.1.1.11\lib\net45\SharpDisasm.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dialogs\AddHardwareBreakpointDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AddHardwareBreakpointDialog.Designer.cs">
+      <DependentUpon>AddHardwareBreakpointDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\HardwareBreakpointDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\HardwareBreakpointDialog.Designer.cs">
+      <DependentUpon>HardwareBreakpointDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MemoryRangeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MemoryRangeDialog.Designer.cs">
+      <DependentUpon>MemoryRangeDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MixedValueDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MixedValueDialog.Designer.cs">
+      <DependentUpon>MixedValueDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PS4Dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PS4Dialog.Designer.cs">
+      <DependentUpon>PS4Dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\StringDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\StringDialog.Designer.cs">
+      <DependentUpon>StringDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ProcessDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ProcessDialog.Designer.cs">
+      <DependentUpon>ProcessDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SearchForm.Designer.cs">
+      <DependentUpon>SearchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper.cs" />
+    <Compile Include="MEMAPI\HardwareBreakpoint.cs" />
+    <Compile Include="MEMAPI\MemoryRange.cs" />
+    <Compile Include="MEMAPI\Module.cs" />
+    <Compile Include="MEMAPI\Process.cs" />
+    <Compile Include="MEMAPI\Registers.cs" />
+    <Compile Include="MEMAPI\Thread.cs" />
+    <Compile Include="PS4.cs" />
+    <Compile Include="Forms\BreakpointsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BreakpointsForm.Designer.cs">
+      <DependentUpon>BreakpointsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ConsoleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConsoleForm.Designer.cs">
+      <DependentUpon>ConsoleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SelectTargetDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SelectTargetDialog.Designer.cs">
+      <DependentUpon>SelectTargetDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DisassemblyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DisassemblyForm.Designer.cs">
+      <DependentUpon>DisassemblyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\KernelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\KernelForm.Designer.cs">
+      <DependentUpon>KernelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MemoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MemoryForm.Designer.cs">
+      <DependentUpon>MemoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RegistersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RegistersForm.Designer.cs">
+      <DependentUpon>RegistersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MEMAPI\API.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MEMAPI\Server.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resource.cs" />
+    <EmbeddedResource Include="Dialogs\AddHardwareBreakpointDialog.resx">
+      <DependentUpon>AddHardwareBreakpointDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\HardwareBreakpointDialog.resx">
+      <DependentUpon>HardwareBreakpointDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MemoryRangeDialog.resx">
+      <DependentUpon>MemoryRangeDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MixedValueDialog.resx">
+      <DependentUpon>MixedValueDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\PS4Dialog.resx">
+      <DependentUpon>PS4Dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\StringDialog.resx">
+      <DependentUpon>StringDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BreakpointsForm.resx">
+      <DependentUpon>BreakpointsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConsoleForm.resx">
+      <DependentUpon>ConsoleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SelectTargetDialog.resx">
+      <DependentUpon>SelectTargetDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DisassemblyForm.resx">
+      <DependentUpon>DisassemblyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\KernelForm.resx">
+      <DependentUpon>KernelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ProcessDialog.resx">
+      <DependentUpon>ProcessDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MemoryForm.resx">
+      <DependentUpon>MemoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RegistersForm.resx">
+      <DependentUpon>RegistersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="bin\Debug\dejavu\DejaVuSansMono.ttf" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Forms\SearchForm.resx">
+      <DependentUpon>SearchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DejaVuSansMono.ttf" />
+    <EmbeddedResource Include="Resources\memapi-server.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\new_document.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\folder_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\close_document.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\step.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\save_as.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\terminal_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\terminal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\window_disassembly_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\window_disassembly.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\window_breakpoints.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\window_memory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\window_registers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\window_kernels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\ps4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\attach.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\send.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\notify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\connect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\disconnect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\disconnected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\connected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\timer_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\timer_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\unlock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\window_search.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
