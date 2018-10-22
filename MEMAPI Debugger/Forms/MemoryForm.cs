@@ -17,14 +17,16 @@ namespace MEMAPI_Debugger.Forms
         private int itemsPerRow;
         private byte[] previousMemory;
         private byte[] memory;
-        private int downloadSize;
+        private ulong downloadSize;
+        private ulong downloadChunk;
 
         public MemoryForm()
         {
             InitializeComponent();
             dataGridView.DefaultCellStyle.Font = new Font(FontFamily.GenericMonospace, 8);
 
-            downloadSize = 0x200;
+            downloadSize = 0xC00;
+            downloadChunk = 0x400;
             lastFollowPointer = null;
 
             memory = new byte[downloadSize];
@@ -61,6 +63,7 @@ namespace MEMAPI_Debugger.Forms
             }
 
             toggleItems(false);
+            refresh();
         }
 
         private void onDisconnected(object sender, EventArgs e)
@@ -72,6 +75,7 @@ namespace MEMAPI_Debugger.Forms
             }
 
             toggleItems(false);
+            refresh();
         }
 
         private void toggleItems(bool enabled)
@@ -88,10 +92,10 @@ namespace MEMAPI_Debugger.Forms
 
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
-            refresh();
+            refresh(null, true, false);
         }
 
-        private void refresh(ulong? address = null, bool download = true)
+        private void refresh(ulong? address = null, bool download = true, bool adjustScroll = true)
         {
             int bytesPerRow = getBytesPerRow();
 
@@ -100,16 +104,23 @@ namespace MEMAPI_Debugger.Forms
 
             if (download)
             {
-                if (!API.isConnected())
+                if (!API.isAttached())
                     memory = new byte[downloadSize];
                 else
                 {
-                    API.ErrorCode error;
-                    memory = API.read<byte>(addressPointer, downloadSize, out error);
-                    if (error != API.ErrorCode.NO_ERROR)
-                        memory = new byte[downloadSize];
+                    API.ErrorCode error = API.ErrorCode.NO_ERROR;
+                    for (ulong offset = 0; offset < downloadSize; offset += downloadChunk)
+                    {
+                        byte[] buffer = API.read<byte>((addressPointer - (downloadSize / 3)) + offset, (int)downloadChunk, out error);
+                        if (error != API.ErrorCode.NO_ERROR)
+                            buffer = new byte[downloadChunk];
+                        Array.Copy(buffer, 0, memory, (int)offset, (int)downloadChunk);
+                    }
                 }
             }
+
+            int downloadAddressIndex = -1;
+            int previousTopRowIndex = dataGridView.FirstDisplayedScrollingRowIndex;
 
             // Clear Table
             dataGridView.Rows.Clear();
@@ -130,8 +141,12 @@ namespace MEMAPI_Debugger.Forms
             int row = 0;
             for (ulong offset = 0; offset < (ulong)memory.Length; offset += (ulong)bytesPerRow)
             {
+                ulong curAddress = (addressPointer - (ulong)(downloadSize / 3)) + offset;
                 object[] items = new object[bytesPerRow + 2];
-                items[0] = ((addressPointer + offset).ToString("x").ToUpper()).PadLeft(16, '0');
+                items[0] = ((curAddress).ToString("x").ToUpper()).PadLeft(16, '0');
+
+                if (curAddress == addressPointer)
+                    downloadAddressIndex = row;
 
                 for (int i = 0; i < bytesPerRow; i++)
                 {
@@ -156,6 +171,14 @@ namespace MEMAPI_Debugger.Forms
                     dataGridView.Rows[row].Cells[i + 1].Style.ForeColor = (memory[offset + (ulong)i] != previousMemory[offset + (ulong)i] ? Color.Red : Color.Black);
                 row++;
             }
+
+            if (adjustScroll)
+            {
+                if (downloadAddressIndex != -1)
+                    dataGridView.FirstDisplayedScrollingRowIndex = downloadAddressIndex;
+            }
+            else
+                dataGridView.FirstDisplayedScrollingRowIndex = previousTopRowIndex;
 
             previousMemory = memory;
         }
@@ -271,7 +294,7 @@ namespace MEMAPI_Debugger.Forms
                 byte[] data = Helper.stringToByteArray(Clipboard.GetText());
                 ulong cellAddress = (ulong)getSelectedCellAddress();
                 API.write(cellAddress, data);
-                refresh();
+                refresh(null, true, false);
             }
             catch
             {
@@ -298,7 +321,7 @@ namespace MEMAPI_Debugger.Forms
             {
                 dynamic newVariable = Convert.ChangeType(dialog.Variable, dialog.VariableType);
                 API.write((ulong)cellAddress, newVariable);
-                refresh();
+                refresh(null, true, false);
             }
         }
 
@@ -322,7 +345,7 @@ namespace MEMAPI_Debugger.Forms
                 for (ulong address = dialog.Range.Start; address < dialog.Range.End; address += newVariableSize)
                     API.write(address, newVariable);
 
-                refresh();
+                refresh(null, true, false);
             }
         }
 
@@ -407,7 +430,7 @@ namespace MEMAPI_Debugger.Forms
             {
                 ulong cellAddress = (ulong)getSelectedCellAddress();
                 API.write(cellAddress, File.ReadAllBytes(dialog.FileName));
-                refresh();
+                refresh(null, true, false);
             }
         }
 
@@ -456,7 +479,7 @@ namespace MEMAPI_Debugger.Forms
 
         private void timerAutoRefresh_Tick(object sender, EventArgs e)
         {
-            refresh();
+            refresh(null, true, false);
         }
 
         private void toolStripButtonLock_Click(object sender, EventArgs e)

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MEMAPI_Debugger.MEMAPI;
 using MEMAPI_Debugger.Dialogs;
 using SharpDisasm;
+using static System.Windows.Forms.ListViewItem;
 
 namespace MEMAPI_Debugger.Forms
 {
@@ -18,6 +19,7 @@ namespace MEMAPI_Debugger.Forms
         private ulong addressPointer;
         private ulong? instructionPointer;
         private int instructionIndex;
+        private int instructionPointerIndex;
         private byte[] memory;
 
         public DisassemblyForm()
@@ -35,6 +37,7 @@ namespace MEMAPI_Debugger.Forms
 
             addressPointer = 0x0;
             instructionIndex = -1;
+            instructionPointerIndex = -1;
 
             goToAddressToolStripMenuItem.Enabled = false;
 
@@ -130,7 +133,8 @@ namespace MEMAPI_Debugger.Forms
 
                 ulong addrConverted = Convert.ToUInt64(addr, 16);
                 bool isAtRip = instructionPointer == addrConverted;
-                bool hasBreakpoint = false;
+                if (isAtRip)
+                    instructionPointerIndex = i;
 
                 if (addrConverted <= address)
                 {
@@ -145,11 +149,7 @@ namespace MEMAPI_Debugger.Forms
                     }
                 }
 
-                if (isAtRip && hasBreakpoint)
-                    item.StateImageIndex = 3;
-                else if (isAtRip)
-                    item.StateImageIndex = 2;
-                else if (hasBreakpoint)
+                if (isAtRip)
                     item.StateImageIndex = 1;
                 else
                     item.StateImageIndex = 0;
@@ -162,6 +162,11 @@ namespace MEMAPI_Debugger.Forms
             goToAddressToolStripMenuItem.Enabled = true;
         }
 
+        private void contextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            goToInstructionPointerToolStripMenuItem.Enabled = instructionPointer != null;
+        }
+
         private void goToAddressToolStripMenuItem_Click(object sender, EventArgs e)
         {
             StringDialog dialog = new StringDialog("Go to address");
@@ -172,12 +177,66 @@ namespace MEMAPI_Debugger.Forms
             }
         }
 
-        private void listView_ItemChecked(object sender, ItemCheckedEventArgs e)
+        private void goToInstructionPointerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (e.Item.Checked)
-                e.Item.StateImageIndex = instructionIndex == e.Item.Index ? 3 : 1;
-            else
-                e.Item.StateImageIndex = instructionIndex == e.Item.Index ? 2 : 0;
+            if (instructionPointer == null)
+                return;
+            addressPointer = (ulong)instructionPointer;
+            refresh();
+        }
+
+        private void listView_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            e.NewValue = (instructionPointerIndex != -1 && instructionPointerIndex == e.Index ? CheckState.Checked : CheckState.Unchecked);
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string toCopy = "";
+            foreach (ListViewItem item in listView.SelectedItems)
+            {
+                foreach (ListViewSubItem subitem in item.SubItems)
+                    toCopy += subitem.Text + "\t\t";
+                toCopy = toCopy.TrimEnd(new char[] { '\t' });
+                toCopy += "\r\n";
+            }
+
+            toCopy = toCopy.TrimEnd(new char[] { '\r', '\n' });
+            if (toCopy != null && toCopy != "")
+                Clipboard.SetText(toCopy);
+        }
+
+        private void copyAddressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string toCopy = "";
+            foreach (ListViewItem item in listView.SelectedItems)
+                toCopy += item.SubItems[0].Text + "\r\n";
+
+            toCopy = toCopy.TrimEnd(new char[] { '\r', '\n' });
+            if (toCopy != null && toCopy != "")
+                Clipboard.SetText(toCopy);
+        }
+
+        private void copyOpcodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string toCopy = "";
+            foreach (ListViewItem item in listView.SelectedItems)
+                toCopy += item.SubItems[1].Text + "\r\n";
+
+            toCopy = toCopy.TrimEnd(new char[] { '\r', '\n' });
+            if (toCopy != null && toCopy != "")
+                Clipboard.SetText(toCopy);
+        }
+
+        private void copyOperandsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string toCopy = "";
+            foreach (ListViewItem item in listView.SelectedItems)
+                toCopy += item.SubItems[2].Text + "\r\n";
+
+            toCopy = toCopy.TrimEnd(new char[] { '\r', '\n' });
+            if (toCopy != null && toCopy != "")
+                Clipboard.SetText(toCopy);
         }
     }
 }

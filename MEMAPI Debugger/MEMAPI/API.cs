@@ -162,9 +162,29 @@ namespace MEMAPI_Debugger.MEMAPI
             onAttached(EventArgs.Empty);
             return true;
         }
+        public static bool attach(string processName)
+        {
+            ErrorCode error;
+            List<Process> processes = getProcesses(out error);
+            if (error != ErrorCode.NO_ERROR || processes.Count == 0)
+                return false;
+
+            foreach (Process process in processes)
+            {
+                if (process.Name == processName)
+                    return attach(process);
+            }
+            return false;
+        }
+        public static bool attachEboot()
+        {
+            return attach("eboot.bin");
+        }
         public static void detach()
         {
-            request(CallType.DETACH, convertToBytes(ProcessId));
+            if (ActiveProcess != null)
+                request(CallType.DETACH, convertToBytes(ProcessId));
+            ActiveProcess = null;
             onDetached(EventArgs.Empty);
         }
         public static bool isConnected()
@@ -182,7 +202,7 @@ namespace MEMAPI_Debugger.MEMAPI
             TcpClient payloadClient = new TcpClient();
             try
             {
-                bool connected = payloadClient.ConnectAsync(IP, 9020).Wait(20);
+                bool connected = payloadClient.ConnectAsync(IP, 9020).Wait(1000);
                 if (!connected)
                 {
                     payloadClient.Close();
@@ -516,12 +536,11 @@ namespace MEMAPI_Debugger.MEMAPI
                 int offset = 0;
 
                 ulong[] registers = convertFromBytes<ulong>(response.data, 15); offset += (sizeof(ulong) * 15);
-                regs.r15 = registers[0]; regs.r15 = registers[0]; regs.r14 = registers[1];
-                regs.r13 = registers[2]; regs.r12 = registers[3]; regs.r11 = registers[4];
-                regs.r10 = registers[5]; regs.r9 = registers[6]; regs.r8 = registers[7];
-                regs.rdi = registers[8]; regs.rsi = registers[9]; regs.rbp = registers[10];
-                regs.rbx = registers[11]; regs.rdx = registers[12]; regs.rcx = registers[13];
-                regs.rax = registers[14];
+                regs.r15 = registers[0]; regs.r14 = registers[1]; regs.r13 = registers[2];
+                regs.r12 = registers[3]; regs.r11 = registers[4]; regs.r10 = registers[5];
+                regs.r9 = registers[6]; regs.r8 = registers[7]; regs.rdi = registers[8];
+                regs.rsi = registers[9]; regs.rbp = registers[10]; regs.rbx = registers[11];
+                regs.rdx = registers[12]; regs.rcx = registers[13]; regs.rax = registers[14];
                 regs.trapno = convertFromBytes<uint>(response.data, offset, sizeof(uint)); offset += sizeof(uint);
                 regs.fs = convertFromBytes<ushort>(response.data, offset, sizeof(ushort)); offset += sizeof(ushort);
                 regs.gs = convertFromBytes<ushort>(response.data, offset, sizeof(ushort)); offset += sizeof(ushort);
@@ -535,6 +554,38 @@ namespace MEMAPI_Debugger.MEMAPI
                 regs.ss = convertFromBytes<ulong>(response.data, offset, sizeof(ulong)); offset += sizeof(ulong);
             }
             return regs;
+        }
+        public static ErrorCode setRegisters(Registers regs)
+        {
+            return request(CallType.DEBUG_SET_REGISTERS, mergeByteArrays(
+                convertToBytes(ProcessId),
+                convertToBytes(regs.r15),
+                convertToBytes(regs.r14),
+                convertToBytes(regs.r13),
+                convertToBytes(regs.r12),
+                convertToBytes(regs.r11),
+                convertToBytes(regs.r10),
+                convertToBytes(regs.r9),
+                convertToBytes(regs.r8),
+                convertToBytes(regs.rdi),
+                convertToBytes(regs.rsi),
+                convertToBytes(regs.rbp),
+                convertToBytes(regs.rbx),
+                convertToBytes(regs.rdx),
+                convertToBytes(regs.rcx),
+                convertToBytes(regs.rax),
+                convertToBytes(regs.trapno),
+                convertToBytes(regs.fs),
+                convertToBytes(regs.gs),
+                convertToBytes(regs.err),
+                convertToBytes(regs.es),
+                convertToBytes(regs.ds),
+                convertToBytes(regs.rip),
+                convertToBytes(regs.cs),
+                convertToBytes(regs.rflags),
+                convertToBytes(regs.rsp),
+                convertToBytes(regs.ss)
+            )).error;
         }
         public static ErrorCode resetHardwareBreakpoint(int index)
         {

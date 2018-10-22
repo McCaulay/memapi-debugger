@@ -39,13 +39,13 @@
             this.columnHeaderValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.comboBoxType = new System.Windows.Forms.ComboBox();
-            this.textBoxValue = new System.Windows.Forms.TextBox();
+            this.labelResultCount = new System.Windows.Forms.Label();
+            this.buttonSearchResult = new System.Windows.Forms.Button();
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.textBoxTo = new System.Windows.Forms.TextBox();
             this.textBoxFrom = new System.Windows.Forms.TextBox();
-            this.buttonSearch = new System.Windows.Forms.Button();
-            this.buttonSearchResult = new System.Windows.Forms.Button();
-            this.labelResultCount = new System.Windows.Forms.Label();
+            this.comboBoxType = new System.Windows.Forms.ComboBox();
+            this.textBoxValue = new System.Windows.Forms.TextBox();
             this.contextMenuStripRegions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -162,6 +162,56 @@
             this.splitContainer2.SplitterDistance = 500;
             this.splitContainer2.TabIndex = 3;
             // 
+            // labelResultCount
+            // 
+            this.labelResultCount.AutoSize = true;
+            this.labelResultCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.5F);
+            this.labelResultCount.Location = new System.Drawing.Point(4, 5);
+            this.labelResultCount.Name = "labelResultCount";
+            this.labelResultCount.Size = new System.Drawing.Size(71, 17);
+            this.labelResultCount.TabIndex = 8;
+            this.labelResultCount.Text = "Results: 0";
+            // 
+            // buttonSearchResult
+            // 
+            this.buttonSearchResult.Enabled = false;
+            this.buttonSearchResult.Location = new System.Drawing.Point(178, 77);
+            this.buttonSearchResult.Name = "buttonSearchResult";
+            this.buttonSearchResult.Size = new System.Drawing.Size(165, 23);
+            this.buttonSearchResult.TabIndex = 5;
+            this.buttonSearchResult.Text = "Search Result";
+            this.buttonSearchResult.UseVisualStyleBackColor = true;
+            this.buttonSearchResult.Click += new System.EventHandler(this.buttonSearchResult_Click);
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Enabled = false;
+            this.buttonSearch.Location = new System.Drawing.Point(7, 77);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(165, 23);
+            this.buttonSearch.TabIndex = 4;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
+            // textBoxTo
+            // 
+            this.textBoxTo.Enabled = false;
+            this.textBoxTo.Location = new System.Drawing.Point(178, 25);
+            this.textBoxTo.Name = "textBoxTo";
+            this.textBoxTo.Size = new System.Drawing.Size(165, 20);
+            this.textBoxTo.TabIndex = 1;
+            this.textBoxTo.Text = "0x0000000000000000";
+            // 
+            // textBoxFrom
+            // 
+            this.textBoxFrom.Enabled = false;
+            this.textBoxFrom.Location = new System.Drawing.Point(7, 25);
+            this.textBoxFrom.Name = "textBoxFrom";
+            this.textBoxFrom.Size = new System.Drawing.Size(165, 20);
+            this.textBoxFrom.TabIndex = 0;
+            this.textBoxFrom.Text = "0x0000000000000000";
+            // 
             // comboBoxType
             // 
             this.comboBoxType.Enabled = false;
@@ -189,56 +239,6 @@
             this.textBoxValue.Name = "textBoxValue";
             this.textBoxValue.Size = new System.Drawing.Size(165, 20);
             this.textBoxValue.TabIndex = 2;
-            // 
-            // textBoxTo
-            // 
-            this.textBoxTo.Enabled = false;
-            this.textBoxTo.Location = new System.Drawing.Point(178, 25);
-            this.textBoxTo.Name = "textBoxTo";
-            this.textBoxTo.Size = new System.Drawing.Size(165, 20);
-            this.textBoxTo.TabIndex = 5;
-            this.textBoxTo.Text = "0x0000000000000000";
-            // 
-            // textBoxFrom
-            // 
-            this.textBoxFrom.Enabled = false;
-            this.textBoxFrom.Location = new System.Drawing.Point(7, 25);
-            this.textBoxFrom.Name = "textBoxFrom";
-            this.textBoxFrom.Size = new System.Drawing.Size(165, 20);
-            this.textBoxFrom.TabIndex = 4;
-            this.textBoxFrom.Text = "0x0000000000000000";
-            // 
-            // buttonSearch
-            // 
-            this.buttonSearch.Enabled = false;
-            this.buttonSearch.Location = new System.Drawing.Point(7, 77);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(165, 23);
-            this.buttonSearch.TabIndex = 6;
-            this.buttonSearch.Text = "Search";
-            this.buttonSearch.UseVisualStyleBackColor = true;
-            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
-            // 
-            // buttonSearchResult
-            // 
-            this.buttonSearchResult.Enabled = false;
-            this.buttonSearchResult.Location = new System.Drawing.Point(178, 77);
-            this.buttonSearchResult.Name = "buttonSearchResult";
-            this.buttonSearchResult.Size = new System.Drawing.Size(165, 23);
-            this.buttonSearchResult.TabIndex = 7;
-            this.buttonSearchResult.Text = "Search Result";
-            this.buttonSearchResult.UseVisualStyleBackColor = true;
-            this.buttonSearchResult.Click += new System.EventHandler(this.buttonSearchResult_Click);
-            // 
-            // labelResultCount
-            // 
-            this.labelResultCount.AutoSize = true;
-            this.labelResultCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.5F);
-            this.labelResultCount.Location = new System.Drawing.Point(4, 5);
-            this.labelResultCount.Name = "labelResultCount";
-            this.labelResultCount.Size = new System.Drawing.Size(71, 17);
-            this.labelResultCount.TabIndex = 8;
-            this.labelResultCount.Text = "Results: 0";
             // 
             // SearchForm
             // 

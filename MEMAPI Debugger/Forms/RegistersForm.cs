@@ -134,30 +134,163 @@ namespace MEMAPI_Debugger.Forms
         {
             copyToolStripMenuItem.Enabled = listView.SelectedItems.Count > 0;
             pasteToolStripMenuItem.Enabled = listView.SelectedItems.Count > 0;
-            enterNewValueToolStripMenuItem.Enabled = listView.SelectedItems.Count > 0;
+            enterNewValueToolStripMenuItem.Enabled = listView.SelectedItems.Count == 1;
         }
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string toCopy = "";
             foreach (ListViewItem item in listView.SelectedItems)
-                toCopy += (item.Text.Split(new char[] { ' ' })[1]).TrimStart(new char[] { '0' }) + "\n";
+                toCopy += (item.Text.Split(new char[] { ' ' })[1]) + "\n";
 
             toCopy = toCopy.TrimEnd(new char[] { '\n' });
-            Clipboard.SetText(toCopy);
+            if (toCopy != null && toCopy != "")
+                Clipboard.SetText(toCopy);
+        }
+
+        private Registers setRegister(Registers regs, string register, string value)
+        {
+            switch (register)
+            {
+                case "RAX":
+                    regs.rax = Convert.ToUInt64(value, 16);
+                    break;
+                case "RBX":
+                    regs.rbx = Convert.ToUInt64(value, 16);
+                    break;
+                case "RCX":
+                    regs.rcx = Convert.ToUInt64(value, 16);
+                    break;
+                case "RDX":
+                    regs.rdx = Convert.ToUInt64(value, 16);
+                    break;
+                case "RSI":
+                    regs.rsi = Convert.ToUInt64(value, 16);
+                    break;
+                case "RDI":
+                    regs.rdi = Convert.ToUInt64(value, 16);
+                    break;
+                case "RBP":
+                    regs.rbp = Convert.ToUInt64(value, 16);
+                    break;
+                case "RSP":
+                    regs.rsp = Convert.ToUInt64(value, 16);
+                    break;
+                case "R08":
+                    regs.r8 = Convert.ToUInt64(value, 16);
+                    break;
+                case "R09":
+                    regs.r9 = Convert.ToUInt64(value, 16);
+                    break;
+                case "R10":
+                    regs.r10 = Convert.ToUInt64(value, 16);
+                    break;
+                case "R11":
+                    regs.r11 = Convert.ToUInt64(value, 16);
+                    break;
+                case "R12":
+                    regs.r12 = Convert.ToUInt64(value, 16);
+                    break;
+                case "R13":
+                    regs.r13 = Convert.ToUInt64(value, 16);
+                    break;
+                case "R14":
+                    regs.r14 = Convert.ToUInt64(value, 16);
+                    break;
+                case "R15":
+                    regs.r15 = Convert.ToUInt64(value, 16);
+                    break;
+                case "RIP":
+                    regs.rip = Convert.ToUInt64(value, 16);
+                    break;
+                case "CS":
+                    regs.cs = Convert.ToUInt64(value, 16);
+                    break;
+                case "DS":
+                    regs.ds = Convert.ToUInt16(value, 16);
+                    break;
+                case "SS":
+                    regs.ss = Convert.ToUInt64(value, 16);
+                    break;
+                case "ES":
+                    regs.ds = Convert.ToUInt16(value, 16);
+                    break;
+                case "FS":
+                    regs.ds = Convert.ToUInt16(value, 16);
+                    break;
+                case "GS":
+                    regs.ds = Convert.ToUInt16(value, 16);
+                    break;
+                case "Flags":
+                    regs.rflags = Convert.ToUInt64(value, 16);
+                    break;
+                case "Trap":
+                    regs.trapno = Convert.ToUInt32(value, 16);
+                    break;
+                case "Error":
+                    regs.err = Convert.ToUInt32(value, 16);
+                    break;
+            }
+            return regs;
         }
 
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string[] values = Clipboard.GetText().Split(new char[] { '\r', '\n' });
+            if (values.Length != listView.SelectedItems.Count)
+            {
+                MessageBox.Show("Number of values in clipboard (" + values.Length + ") does not match the number of paste registers (" + listView.SelectedItems.Count + ").", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            API.ErrorCode error;
+            Registers regs = API.getRegisters(out error);
+
+            if (error != API.ErrorCode.NO_ERROR)
+                return;
+
+            int i = 0;
+            foreach (ListViewItem item in listView.SelectedItems)
+            {
+                try
+                {
+                    string[] itemSplit = item.Text.Split(new char[] { ':' });
+                    string register = itemSplit[0];
+                    regs = setRegister(regs, register, values[i]);
+                }
+                catch { }
+                i++;
+            }
+
+            API.setRegisters(regs);
+            refresh();
         }
 
         private void enterNewValueToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (listView.SelectedItems.Count == 0)
+                return;
+
+            ListViewItem item = listView.SelectedItems[0];
+
+            API.ErrorCode error;
+            Registers regs = API.getRegisters(out error);
+
+            if (error != API.ErrorCode.NO_ERROR)
+                return;
+
             StringDialog dialog = new StringDialog("Enter new register value");
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                // To do
+                try
+                {
+                    string[] itemSplit = item.Text.Split(new char[] { ':' });
+                    string register = itemSplit[0];
+                    regs = setRegister(regs, register, dialog.Message);
+                    API.setRegisters(regs);
+                    refresh();
+                }
+                catch { }
             }
         }
     }

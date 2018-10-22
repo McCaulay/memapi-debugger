@@ -115,13 +115,6 @@ namespace MEMAPI_Debugger.Forms
                 API.setHardwareBreakpoints(hardwareBreakpoints);
             }
         }
-
-        private void attachProcess()
-        {
-            ProcessDialog dialog = new ProcessDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
-                API.attach(dialog.process);
-        }
         #endregion
 
         #region Tools
@@ -156,6 +149,23 @@ namespace MEMAPI_Debugger.Forms
             StringDialog dialog = new StringDialog("Notification Message");
             if (dialog.ShowDialog() == DialogResult.OK)
                 API.notify(dialog.Message);
+        }
+
+        private void attachProcess()
+        {
+            ProcessDialog dialog = new ProcessDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
+                API.attach(dialog.process);
+        }
+
+        private void attachEboot()
+        {
+            API.attachEboot();
+        }
+
+        private void detach()
+        {
+            API.detach();
         }
         #endregion
 
@@ -237,7 +247,6 @@ namespace MEMAPI_Debugger.Forms
         private void pauseToolStripMenuItem_Click(object sender, EventArgs e) => pause();
         private void stopToolStripMenuItem_Click(object sender, EventArgs e) => stop();
         private void stepToolStripMenuItem_Click(object sender, EventArgs e) => step();
-        private void attachProcessToolStripMenuItem_Click(object sender, EventArgs e) => attachProcess();
         private void hardwareBreakpointsToolStripMenuItem_Click(object sender, EventArgs e) => getHardwareBreakpoints();
         #endregion
 
@@ -247,6 +256,9 @@ namespace MEMAPI_Debugger.Forms
         private void connectToolStripMenuItem_Click(object sender, EventArgs e) => connect();
         private void disconnectToolStripMenuItem_Click(object sender, EventArgs e) => disconnect();
         private void notifyToolStripMenuItem_Click(object sender, EventArgs e) => notify();
+        private void attachProcessToolStripMenuItem_Click(object sender, EventArgs e) => attachProcess();
+        private void attachEbootToolStripMenuItem_Click(object sender, EventArgs e) => attachEboot();
+        private void detachToolStripMenuItem_Click(object sender, EventArgs e) => detach();
         #endregion
 
         #region Window
@@ -291,6 +303,8 @@ namespace MEMAPI_Debugger.Forms
         private void toolStripButtonDisconnect_Click(object sender, EventArgs e) => disconnect();
         private void toolStripButtonNotify_Click(object sender, EventArgs e) => notify();
         private void toolStripButtonAttachProcess_Click(object sender, EventArgs e) => attachProcess();
+        private void toolStripButtonAttachEboot_Click(object sender, EventArgs e) => attachEboot();
+        private void toolStripButtonDetach_Click(object sender, EventArgs e) => detach();
         #endregion
 
         #region Window
@@ -323,6 +337,8 @@ namespace MEMAPI_Debugger.Forms
             toolStripButtonNotify.Enabled = true;
             attachProcessToolStripMenuItem.Enabled = true;
             toolStripButtonAttachProcess.Enabled = true;
+            attachEbootToolStripMenuItem.Enabled = true;
+            toolStripButtonAttachEboot.Enabled = true;
 
             toolStripStatusLabelFirmware.Text = "Firmware: " + API.getFirmware();
             toolStripStatusLabelFirmware.Visible = true;
@@ -345,6 +361,8 @@ namespace MEMAPI_Debugger.Forms
             toolStripButtonNotify.Enabled = false;
             attachProcessToolStripMenuItem.Enabled = false;
             toolStripButtonAttachProcess.Enabled = false;
+            attachEbootToolStripMenuItem.Enabled = false;
+            toolStripButtonAttachEboot.Enabled = false;
 
             toolStripStatusLabelFirmware.Visible = false;
             toolStripStatusSeperator2.Visible = false;
@@ -380,6 +398,13 @@ namespace MEMAPI_Debugger.Forms
             goToolStripMenuItem.Enabled = false;
             toolStripButtonPlay.Enabled = false;
             hardwareBreakpointsToolStripMenuItem.Enabled = true;
+
+            attachProcessToolStripMenuItem.Enabled = false;
+            toolStripButtonAttachProcess.Enabled = false;
+            attachEbootToolStripMenuItem.Enabled = false;
+            toolStripButtonAttachEboot.Enabled = false;
+            detachToolStripMenuItem.Enabled = true;
+            toolStripButtonDetach.Enabled = true;
         }
         private void onDetached(object sender, EventArgs e)
         {
@@ -396,6 +421,13 @@ namespace MEMAPI_Debugger.Forms
             goToolStripMenuItem.Enabled = false;
             toolStripButtonPlay.Enabled = false;
             hardwareBreakpointsToolStripMenuItem.Enabled = false;
+
+            attachProcessToolStripMenuItem.Enabled = true;
+            toolStripButtonAttachProcess.Enabled = true;
+            attachEbootToolStripMenuItem.Enabled = true;
+            toolStripButtonAttachEboot.Enabled = true;
+            detachToolStripMenuItem.Enabled = false;
+            toolStripButtonDetach.Enabled = false;
         }
         private void onGo(object sender, EventArgs e)
         {

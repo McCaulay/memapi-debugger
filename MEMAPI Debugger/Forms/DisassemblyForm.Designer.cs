@@ -35,7 +35,13 @@
             this.columnHeaderOpcode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderOperands = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyOpcodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyOperandsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.goToAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.goToInstructionPointerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageListBreakpoint = new System.Windows.Forms.ImageList(this.components);
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -50,7 +56,6 @@
             this.listView.ContextMenuStrip = this.contextMenuStrip;
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.FullRowSelect = true;
-            this.listView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView.Location = new System.Drawing.Point(0, 0);
             this.listView.Name = "listView";
             this.listView.Size = new System.Drawing.Size(629, 539);
@@ -58,7 +63,7 @@
             this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
-            this.listView.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listView_ItemChecked);
+            this.listView.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.listView_ItemCheck);
             // 
             // columnHeaderAddress
             // 
@@ -78,26 +83,74 @@
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.goToAddressToolStripMenuItem});
+            this.copyToolStripMenuItem,
+            this.copyAddressToolStripMenuItem,
+            this.copyOpcodeToolStripMenuItem,
+            this.copyOperandsToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.goToAddressToolStripMenuItem,
+            this.goToInstructionPointerToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(189, 26);
+            this.contextMenuStrip.Size = new System.Drawing.Size(198, 164);
+            this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // copyAddressToolStripMenuItem
+            // 
+            this.copyAddressToolStripMenuItem.Name = "copyAddressToolStripMenuItem";
+            this.copyAddressToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.copyAddressToolStripMenuItem.Text = "Copy address";
+            this.copyAddressToolStripMenuItem.Click += new System.EventHandler(this.copyAddressToolStripMenuItem_Click);
+            // 
+            // copyOpcodeToolStripMenuItem
+            // 
+            this.copyOpcodeToolStripMenuItem.Name = "copyOpcodeToolStripMenuItem";
+            this.copyOpcodeToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.copyOpcodeToolStripMenuItem.Text = "Copy opcode";
+            this.copyOpcodeToolStripMenuItem.Click += new System.EventHandler(this.copyOpcodeToolStripMenuItem_Click);
+            // 
+            // copyOperandsToolStripMenuItem
+            // 
+            this.copyOperandsToolStripMenuItem.Name = "copyOperandsToolStripMenuItem";
+            this.copyOperandsToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.copyOperandsToolStripMenuItem.Text = "Copy operands";
+            this.copyOperandsToolStripMenuItem.Click += new System.EventHandler(this.copyOperandsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(194, 6);
             // 
             // goToAddressToolStripMenuItem
             // 
             this.goToAddressToolStripMenuItem.Name = "goToAddressToolStripMenuItem";
             this.goToAddressToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.goToAddressToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.goToAddressToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.goToAddressToolStripMenuItem.Text = "Go to address";
             this.goToAddressToolStripMenuItem.Click += new System.EventHandler(this.goToAddressToolStripMenuItem_Click);
+            // 
+            // goToInstructionPointerToolStripMenuItem
+            // 
+            this.goToInstructionPointerToolStripMenuItem.Name = "goToInstructionPointerToolStripMenuItem";
+            this.goToInstructionPointerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.G)));
+            this.goToInstructionPointerToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.goToInstructionPointerToolStripMenuItem.Text = "Go to RIP";
+            this.goToInstructionPointerToolStripMenuItem.Click += new System.EventHandler(this.goToInstructionPointerToolStripMenuItem_Click);
             // 
             // imageListBreakpoint
             // 
             this.imageListBreakpoint.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListBreakpoint.ImageStream")));
             this.imageListBreakpoint.TransparentColor = System.Drawing.Color.Transparent;
             this.imageListBreakpoint.Images.SetKeyName(0, "transparent.png");
-            this.imageListBreakpoint.Images.SetKeyName(1, "breakpoint.png");
-            this.imageListBreakpoint.Images.SetKeyName(2, "pointer.png");
-            this.imageListBreakpoint.Images.SetKeyName(3, "breakpoint_pointer.png");
+            this.imageListBreakpoint.Images.SetKeyName(1, "pointer.png");
             // 
             // DisassemblyForm
             // 
@@ -121,5 +174,11 @@
         private System.Windows.Forms.ToolStripMenuItem goToAddressToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader columnHeaderOpcode;
         private System.Windows.Forms.ColumnHeader columnHeaderOperands;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyAddressToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyOpcodeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyOperandsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem goToInstructionPointerToolStripMenuItem;
     }
 }

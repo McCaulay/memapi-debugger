@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.ListViewItem;
 
 namespace MEMAPI_Debugger.Forms
 {
@@ -77,7 +78,7 @@ namespace MEMAPI_Debugger.Forms
 
         private void refreshRanges()
         {
-            if (!API.isConnected())
+            if (!API.isAttached())
                 regions = new List<MemoryRange>();
             else
             {
@@ -111,7 +112,18 @@ namespace MEMAPI_Debugger.Forms
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string toCopy = "";
+            foreach (ListViewItem item in listViewRanges.SelectedItems)
+            {
+                foreach (ListViewSubItem subitem in item.SubItems)
+                    toCopy += subitem.Text + "\t";
+                toCopy = toCopy.TrimEnd(new char[] { '\t' });
+                toCopy += "\r\n";
+            }
 
+            toCopy = toCopy.TrimEnd(new char[] { '\r', '\n' });
+            if (toCopy != null && toCopy != "")
+                Clipboard.SetText(toCopy);
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)

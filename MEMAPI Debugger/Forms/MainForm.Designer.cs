@@ -68,15 +68,17 @@
             this.toolStripButtonSendPayload = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonConnect = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDisconnect = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonNotify = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonAttachEboot = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAttachProcess = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonDetach = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonNotify = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonBreakpoints = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDisassembly = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonKernel = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonMemory = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRegisters = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonConsole = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSearch = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonConsole = new System.Windows.Forms.ToolStripButton();
             this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,6 +90,7 @@
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.attachProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.attachEbootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectTargetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendPayloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,15 +101,16 @@
             this.kernelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeBreakpointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeDisassemblyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeKernelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeMemoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeRegistersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changeConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -184,6 +188,8 @@
             this.stepToolStripMenuItem,
             this.toolStripSeparator5,
             this.attachProcessToolStripMenuItem,
+            this.attachEbootToolStripMenuItem,
+            this.detachToolStripMenuItem,
             this.toolStripSeparator8,
             this.hardwareBreakpointsToolStripMenuItem});
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
@@ -245,7 +251,7 @@
             this.searchToolStripMenuItem,
             this.consoleToolStripMenuItem});
             this.newViewToolStripMenuItem.Name = "newViewToolStripMenuItem";
-            this.newViewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newViewToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.newViewToolStripMenuItem.Text = "New View";
             // 
             // changeViewToolStripMenuItem
@@ -259,7 +265,7 @@
             this.changeSearchToolStripMenuItem,
             this.changeConsoleToolStripMenuItem});
             this.changeViewToolStripMenuItem.Name = "changeViewToolStripMenuItem";
-            this.changeViewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changeViewToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.changeViewToolStripMenuItem.Text = "Change View";
             // 
             // toolStrip
@@ -279,8 +285,10 @@
             this.toolStripButtonSendPayload,
             this.toolStripButtonConnect,
             this.toolStripButtonDisconnect,
-            this.toolStripButtonNotify,
+            this.toolStripButtonAttachEboot,
             this.toolStripButtonAttachProcess,
+            this.toolStripButtonDetach,
+            this.toolStripButtonNotify,
             this.toolStripSeparator9,
             this.toolStripButtonBreakpoints,
             this.toolStripButtonDisassembly,
@@ -500,16 +508,16 @@
             this.toolStripButtonDisconnect.Text = "Disconnect";
             this.toolStripButtonDisconnect.Click += new System.EventHandler(this.toolStripButtonDisconnect_Click);
             // 
-            // toolStripButtonNotify
+            // toolStripButtonAttachEboot
             // 
-            this.toolStripButtonNotify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonNotify.Enabled = false;
-            this.toolStripButtonNotify.Image = global::MEMAPI_Debugger.Properties.Resources.notify;
-            this.toolStripButtonNotify.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonNotify.Name = "toolStripButtonNotify";
-            this.toolStripButtonNotify.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonNotify.Text = "Notify";
-            this.toolStripButtonNotify.Click += new System.EventHandler(this.toolStripButtonNotify_Click);
+            this.toolStripButtonAttachEboot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonAttachEboot.Enabled = false;
+            this.toolStripButtonAttachEboot.Image = global::MEMAPI_Debugger.Properties.Resources.attach_eboot;
+            this.toolStripButtonAttachEboot.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAttachEboot.Name = "toolStripButtonAttachEboot";
+            this.toolStripButtonAttachEboot.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonAttachEboot.Text = "Attach EBOOT";
+            this.toolStripButtonAttachEboot.Click += new System.EventHandler(this.toolStripButtonAttachEboot_Click);
             // 
             // toolStripButtonAttachProcess
             // 
@@ -522,9 +530,32 @@
             this.toolStripButtonAttachProcess.Text = "Attach Process";
             this.toolStripButtonAttachProcess.Click += new System.EventHandler(this.toolStripButtonAttachProcess_Click);
             // 
+            // toolStripButtonDetach
+            // 
+            this.toolStripButtonDetach.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonDetach.Enabled = false;
+            this.toolStripButtonDetach.Image = global::MEMAPI_Debugger.Properties.Resources.detach;
+            this.toolStripButtonDetach.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonDetach.Name = "toolStripButtonDetach";
+            this.toolStripButtonDetach.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonDetach.Text = "Detach Process";
+            this.toolStripButtonDetach.Click += new System.EventHandler(this.toolStripButtonDetach_Click);
+            // 
+            // toolStripButtonNotify
+            // 
+            this.toolStripButtonNotify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonNotify.Enabled = false;
+            this.toolStripButtonNotify.Image = global::MEMAPI_Debugger.Properties.Resources.notify;
+            this.toolStripButtonNotify.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonNotify.Name = "toolStripButtonNotify";
+            this.toolStripButtonNotify.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonNotify.Text = "Notify";
+            this.toolStripButtonNotify.Click += new System.EventHandler(this.toolStripButtonNotify_Click);
+            // 
             // toolStripButtonBreakpoints
             // 
             this.toolStripButtonBreakpoints.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonBreakpoints.Enabled = false;
             this.toolStripButtonBreakpoints.Image = global::MEMAPI_Debugger.Properties.Resources.window_breakpoints;
             this.toolStripButtonBreakpoints.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonBreakpoints.Name = "toolStripButtonBreakpoints";
@@ -572,16 +603,6 @@
             this.toolStripButtonRegisters.Text = "Register";
             this.toolStripButtonRegisters.Click += new System.EventHandler(this.toolStripButtonRegisters_Click);
             // 
-            // toolStripButtonConsole
-            // 
-            this.toolStripButtonConsole.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonConsole.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonConsole.Image")));
-            this.toolStripButtonConsole.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonConsole.Name = "toolStripButtonConsole";
-            this.toolStripButtonConsole.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonConsole.Text = "Console";
-            this.toolStripButtonConsole.Click += new System.EventHandler(this.toolStripButtonConsole_Click);
-            // 
             // toolStripButtonSearch
             // 
             this.toolStripButtonSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -591,6 +612,16 @@
             this.toolStripButtonSearch.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonSearch.Text = "Search";
             this.toolStripButtonSearch.Click += new System.EventHandler(this.toolStripButtonSearch_Click);
+            // 
+            // toolStripButtonConsole
+            // 
+            this.toolStripButtonConsole.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonConsole.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonConsole.Image")));
+            this.toolStripButtonConsole.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonConsole.Name = "toolStripButtonConsole";
+            this.toolStripButtonConsole.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonConsole.Text = "Console";
+            this.toolStripButtonConsole.Click += new System.EventHandler(this.toolStripButtonConsole_Click);
             // 
             // newProjectToolStripMenuItem
             // 
@@ -689,6 +720,15 @@
             this.attachProcessToolStripMenuItem.Text = "Attach process...";
             this.attachProcessToolStripMenuItem.Click += new System.EventHandler(this.attachProcessToolStripMenuItem_Click);
             // 
+            // attachEbootToolStripMenuItem
+            // 
+            this.attachEbootToolStripMenuItem.Enabled = false;
+            this.attachEbootToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.attach_eboot;
+            this.attachEbootToolStripMenuItem.Name = "attachEbootToolStripMenuItem";
+            this.attachEbootToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.attachEbootToolStripMenuItem.Text = "Attach EBOOT";
+            this.attachEbootToolStripMenuItem.Click += new System.EventHandler(this.attachEbootToolStripMenuItem_Click);
+            // 
             // selectTargetToolStripMenuItem
             // 
             this.selectTargetToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.ps4;
@@ -735,9 +775,10 @@
             // 
             // breakpointsToolStripMenuItem
             // 
+            this.breakpointsToolStripMenuItem.Enabled = false;
             this.breakpointsToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.window_breakpoints;
             this.breakpointsToolStripMenuItem.Name = "breakpointsToolStripMenuItem";
-            this.breakpointsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.breakpointsToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.breakpointsToolStripMenuItem.Text = "Breakpoints";
             this.breakpointsToolStripMenuItem.Click += new System.EventHandler(this.breakpointsToolStripMenuItem_Click);
             // 
@@ -745,7 +786,7 @@
             // 
             this.disassemblyToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("disassemblyToolStripMenuItem.Image")));
             this.disassemblyToolStripMenuItem.Name = "disassemblyToolStripMenuItem";
-            this.disassemblyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.disassemblyToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.disassemblyToolStripMenuItem.Text = "Disassembly";
             this.disassemblyToolStripMenuItem.Click += new System.EventHandler(this.disassemblyToolStripMenuItem_Click);
             // 
@@ -753,7 +794,7 @@
             // 
             this.kernelToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.window_kernels;
             this.kernelToolStripMenuItem.Name = "kernelToolStripMenuItem";
-            this.kernelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.kernelToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.kernelToolStripMenuItem.Text = "Kernel";
             this.kernelToolStripMenuItem.Click += new System.EventHandler(this.kernelToolStripMenuItem_Click);
             // 
@@ -761,7 +802,7 @@
             // 
             this.memoryToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.window_memory;
             this.memoryToolStripMenuItem.Name = "memoryToolStripMenuItem";
-            this.memoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.memoryToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.memoryToolStripMenuItem.Text = "Memory";
             this.memoryToolStripMenuItem.Click += new System.EventHandler(this.memoryToolStripMenuItem_Click);
             // 
@@ -769,23 +810,32 @@
             // 
             this.registersToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.window_registers;
             this.registersToolStripMenuItem.Name = "registersToolStripMenuItem";
-            this.registersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.registersToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.registersToolStripMenuItem.Text = "Registers";
             this.registersToolStripMenuItem.Click += new System.EventHandler(this.registersToolStripMenuItem_Click);
+            // 
+            // searchToolStripMenuItem
+            // 
+            this.searchToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.window_search;
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.searchToolStripMenuItem.Text = "Search";
+            this.searchToolStripMenuItem.Click += new System.EventHandler(this.searchToolStripMenuItem_Click);
             // 
             // consoleToolStripMenuItem
             // 
             this.consoleToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("consoleToolStripMenuItem.Image")));
             this.consoleToolStripMenuItem.Name = "consoleToolStripMenuItem";
-            this.consoleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.consoleToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.consoleToolStripMenuItem.Text = "Console";
             this.consoleToolStripMenuItem.Click += new System.EventHandler(this.consoleToolStripMenuItem_Click);
             // 
             // changeBreakpointsToolStripMenuItem
             // 
+            this.changeBreakpointsToolStripMenuItem.Enabled = false;
             this.changeBreakpointsToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.window_breakpoints;
             this.changeBreakpointsToolStripMenuItem.Name = "changeBreakpointsToolStripMenuItem";
-            this.changeBreakpointsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changeBreakpointsToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.changeBreakpointsToolStripMenuItem.Text = "Breakpoints";
             this.changeBreakpointsToolStripMenuItem.Click += new System.EventHandler(this.changeBreakpointsToolStripMenuItem_Click);
             // 
@@ -793,7 +843,7 @@
             // 
             this.changeDisassemblyToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("changeDisassemblyToolStripMenuItem.Image")));
             this.changeDisassemblyToolStripMenuItem.Name = "changeDisassemblyToolStripMenuItem";
-            this.changeDisassemblyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changeDisassemblyToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.changeDisassemblyToolStripMenuItem.Text = "Disassembly";
             this.changeDisassemblyToolStripMenuItem.Click += new System.EventHandler(this.changeDisassemblyToolStripMenuItem_Click);
             // 
@@ -801,7 +851,7 @@
             // 
             this.changeKernelToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.window_kernels;
             this.changeKernelToolStripMenuItem.Name = "changeKernelToolStripMenuItem";
-            this.changeKernelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changeKernelToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.changeKernelToolStripMenuItem.Text = "Kernel";
             this.changeKernelToolStripMenuItem.Click += new System.EventHandler(this.changeKernelToolStripMenuItem_Click);
             // 
@@ -809,7 +859,7 @@
             // 
             this.changeMemoryToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.window_memory;
             this.changeMemoryToolStripMenuItem.Name = "changeMemoryToolStripMenuItem";
-            this.changeMemoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changeMemoryToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.changeMemoryToolStripMenuItem.Text = "Memory";
             this.changeMemoryToolStripMenuItem.Click += new System.EventHandler(this.changeMemoryToolStripMenuItem_Click);
             // 
@@ -817,33 +867,34 @@
             // 
             this.changeRegistersToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.window_registers;
             this.changeRegistersToolStripMenuItem.Name = "changeRegistersToolStripMenuItem";
-            this.changeRegistersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changeRegistersToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.changeRegistersToolStripMenuItem.Text = "Registers";
             this.changeRegistersToolStripMenuItem.Click += new System.EventHandler(this.changeRegistersToolStripMenuItem_Click);
-            // 
-            // changeConsoleToolStripMenuItem
-            // 
-            this.changeConsoleToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("changeConsoleToolStripMenuItem.Image")));
-            this.changeConsoleToolStripMenuItem.Name = "changeConsoleToolStripMenuItem";
-            this.changeConsoleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.changeConsoleToolStripMenuItem.Text = "Console";
-            this.changeConsoleToolStripMenuItem.Click += new System.EventHandler(this.changeConsoleToolStripMenuItem_Click);
-            // 
-            // searchToolStripMenuItem
-            // 
-            this.searchToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.window_search;
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.searchToolStripMenuItem.Text = "Search";
-            this.searchToolStripMenuItem.Click += new System.EventHandler(this.searchToolStripMenuItem_Click);
             // 
             // changeSearchToolStripMenuItem
             // 
             this.changeSearchToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.window_search;
             this.changeSearchToolStripMenuItem.Name = "changeSearchToolStripMenuItem";
-            this.changeSearchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changeSearchToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.changeSearchToolStripMenuItem.Text = "Search";
             this.changeSearchToolStripMenuItem.Click += new System.EventHandler(this.changeSearchToolStripMenuItem_Click);
+            // 
+            // changeConsoleToolStripMenuItem
+            // 
+            this.changeConsoleToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("changeConsoleToolStripMenuItem.Image")));
+            this.changeConsoleToolStripMenuItem.Name = "changeConsoleToolStripMenuItem";
+            this.changeConsoleToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.changeConsoleToolStripMenuItem.Text = "Console";
+            this.changeConsoleToolStripMenuItem.Click += new System.EventHandler(this.changeConsoleToolStripMenuItem_Click);
+            // 
+            // detachToolStripMenuItem
+            // 
+            this.detachToolStripMenuItem.Enabled = false;
+            this.detachToolStripMenuItem.Image = global::MEMAPI_Debugger.Properties.Resources.detach;
+            this.detachToolStripMenuItem.Name = "detachToolStripMenuItem";
+            this.detachToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.detachToolStripMenuItem.Text = "Detach Process";
+            this.detachToolStripMenuItem.Click += new System.EventHandler(this.detachToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -950,6 +1001,10 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonSearch;
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changeSearchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButtonAttachEboot;
+        private System.Windows.Forms.ToolStripMenuItem attachEbootToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButtonDetach;
+        private System.Windows.Forms.ToolStripMenuItem detachToolStripMenuItem;
     }
 }
 

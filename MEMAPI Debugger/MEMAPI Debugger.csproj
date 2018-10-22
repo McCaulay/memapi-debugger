@@ -327,5 +327,11 @@
   <ItemGroup>
     <None Include="bin\Debug\icons\window_search.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\attach_eboot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\detach.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -83,6 +83,16 @@ namespace MEMAPI_Debugger.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap attach_eboot {
+            get {
+                object obj = ResourceManager.GetObject("attach_eboot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap close_document {
             get {
                 object obj = ResourceManager.GetObject("close_document", resourceCulture);
@@ -106,6 +116,16 @@ namespace MEMAPI_Debugger.Properties {
         internal static System.Drawing.Bitmap connected {
             get {
                 object obj = ResourceManager.GetObject("connected", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap detach {
+            get {
+                object obj = ResourceManager.GetObject("detach", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
