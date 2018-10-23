@@ -121,7 +121,7 @@ namespace MEMAPI_Debugger.Dialogs
             TcpClient client = new TcpClient();
             try
             {
-                if (client.ConnectAsync(ip, 9020).Wait(10))
+                if (client.ConnectAsync(ip, 9020).Wait(75))
                 {
                     client.Close();
                     return true;
