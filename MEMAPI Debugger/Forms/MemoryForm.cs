@@ -1,4 +1,4 @@
-﻿using MEMAPI_Debugger.MEMAPI;
+﻿using MEMAPI;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -139,14 +139,18 @@ namespace MEMAPI_Debugger.Forms
 
             // Add Rows
             int row = 0;
-            for (ulong offset = 0; offset < (ulong)memory.Length; offset += (ulong)bytesPerRow)
+            for (ulong offset = 0; (offset + (ulong)bytesPerRow) < (ulong)memory.Length; offset += (ulong)bytesPerRow)
             {
                 ulong curAddress = (addressPointer - (ulong)(downloadSize / 3)) + offset;
                 object[] items = new object[bytesPerRow + 2];
                 items[0] = ((curAddress).ToString("x").ToUpper()).PadLeft(16, '0');
 
-                if (curAddress == addressPointer)
-                    downloadAddressIndex = row;
+                if ((offset + (ulong)bytesPerRow) < (ulong)memory.Length)
+                {
+                    ulong nextAddress = (addressPointer - (ulong)(downloadSize / 3)) + (offset + (ulong)bytesPerRow);
+                    if (curAddress <= addressPointer && nextAddress >= addressPointer)
+                        downloadAddressIndex = row;
+                }
 
                 for (int i = 0; i < bytesPerRow; i++)
                 {
@@ -168,7 +172,12 @@ namespace MEMAPI_Debugger.Forms
 
                 // Apply colour if changed
                 for (int i = 0; i < bytesPerRow; i++)
-                    dataGridView.Rows[row].Cells[i + 1].Style.ForeColor = (memory[offset + (ulong)i] != previousMemory[offset + (ulong)i] ? Color.Red : Color.Black);
+                {
+                    byte currentByte = memory[offset + (ulong)i];
+                    byte previousByte = previousMemory[offset + (ulong)i];
+                    bool hasMemoryChanged = (currentByte != previousByte);
+                    dataGridView.Rows[row].Cells[i + 1].Style.ForeColor = hasMemoryChanged ? Color.Red : Color.Black;
+                }
                 row++;
             }
 
@@ -254,6 +263,11 @@ namespace MEMAPI_Debugger.Forms
         }
 
         private void MemoryForm_ResizeEnd(object sender, EventArgs e)
+        {
+            refresh(null, false);
+        }
+
+        private void MemoryForm_Resize(object sender, EventArgs e)
         {
             refresh(null, false);
         }
@@ -378,7 +392,7 @@ namespace MEMAPI_Debugger.Forms
 
             // Select value, so get address of value
             ulong offset = (ulong)((cell.ColumnIndex - 1) + (cell.RowIndex * getBytesPerRow()));
-            return addressPointer + offset;
+            return (addressPointer - (downloadChunk)) + offset;
         }
 
         private ulong? getSelectedCellPointer()

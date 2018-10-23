@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MEMAPI Debugger")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A PS4 Debugger allowing you to debug applications, read/write memory and view it's registers.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MEMAPI Debugger")]

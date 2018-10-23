@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MEMAPI_Debugger.MEMAPI;
+using MEMAPI;
 using MEMAPI_Debugger.Forms;
 using MEMAPI_Debugger.Dialogs;
 
@@ -489,6 +489,11 @@ namespace MEMAPI_Debugger.Forms
         {
             if (API.isConnected())
                 API.disconnect();
+        }
+
+        private void toolStripButtonPatreon_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.patreon.com/ludicrousbeach");
         }
     }
 }

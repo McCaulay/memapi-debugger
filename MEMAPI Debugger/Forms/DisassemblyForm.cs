@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MEMAPI_Debugger.MEMAPI;
+using MEMAPI;
 using MEMAPI_Debugger.Dialogs;
 using SharpDisasm;
 using static System.Windows.Forms.ListViewItem;
@@ -164,6 +164,10 @@ namespace MEMAPI_Debugger.Forms
 
         private void contextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
+            copyToolStripMenuItem.Enabled = listView.SelectedItems.Count > 0;
+            copyAddressToolStripMenuItem.Enabled = listView.SelectedItems.Count > 0;
+            copyOpcodeToolStripMenuItem.Enabled = listView.SelectedItems.Count > 0;
+            copyOperandsToolStripMenuItem.Enabled = listView.SelectedItems.Count > 0;
             goToInstructionPointerToolStripMenuItem.Enabled = instructionPointer != null;
         }
 

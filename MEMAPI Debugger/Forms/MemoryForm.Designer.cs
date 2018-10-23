@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MemoryForm));
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -120,7 +121,7 @@
             this.loadMemoryToolStripMenuItem,
             this.saveMemoryToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(248, 270);
+            this.contextMenuStrip.Size = new System.Drawing.Size(248, 248);
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
             // pasteToolStripMenuItem
@@ -393,9 +394,11 @@
             this.ClientSize = new System.Drawing.Size(644, 592);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.toolStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MemoryForm";
             this.Text = "Memory";
             this.ResizeEnd += new System.EventHandler(this.MemoryForm_ResizeEnd);
+            this.Resize += new System.EventHandler(this.MemoryForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.contextMenuStrip.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);

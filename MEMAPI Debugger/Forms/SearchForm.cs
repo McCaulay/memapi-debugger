@@ -1,4 +1,4 @@
-﻿using MEMAPI_Debugger.MEMAPI;
+﻿using MEMAPI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +16,7 @@ namespace MEMAPI_Debugger.Forms
     {
         private List<MemoryRange> regions;
         private Type lastSearchType;
+        private int searchValueLength;
 
         public SearchForm()
         {
@@ -24,6 +25,7 @@ namespace MEMAPI_Debugger.Forms
 
             regions = new List<MemoryRange>();
             lastSearchType = null;
+            searchValueLength = 0;
 
             // Events
             API.AttachedEvent += onAttached;
@@ -93,13 +95,50 @@ namespace MEMAPI_Debugger.Forms
             }
         }
 
-        private void refreshResults()
+        private void refreshResults(string value = "")
         {
             ulong[] results = API.getResults();
             listViewResults.Items.Clear();
             foreach (ulong result in results)
             {
-                listViewResults.Items.Add(new ListViewItem(new string[] { Helper.ulongToString(result) }));
+                if (value == "")
+                {
+                    API.ErrorCode error;
+                    switch (comboBoxType.SelectedIndex)
+                    {
+                        case 0:
+                            value = BitConverter.ToString(API.read<byte>(result, searchValueLength, out error)).Replace("-", "");
+                            break;
+                        case 1:
+                            value = API.read<int>(result, out error).ToString();
+                            break;
+                        case 2:
+                            value = API.read<short>(result, out error).ToString();
+                            break;
+                        case 3:
+                            value = Helper.longToString(API.read<long>(result, out error), false);
+                            break;
+                        case 4:
+                            value = API.read<float>(result, out error).ToString();
+                            break;
+                        case 5:
+                            value = API.read<double>(result, out error).ToString();
+                            break;
+                        case 6:
+                            value = API.read<string>(result, out error);
+                            break;
+                        case 7:
+                            value = API.read<uint>(result, out error).ToString();
+                            break;
+                        case 8:
+                            value = API.read<ushort>(result, out error).ToString();
+                            break;
+                        case 9:
+                            value = Helper.ulongToString(API.read<ulong>(result, out error), false);
+                            break;
+                    }
+                }
+                listViewResults.Items.Add(new ListViewItem(new string[] { Helper.ulongToString(result), value }));
             }
         }
 
@@ -108,6 +147,12 @@ namespace MEMAPI_Debugger.Forms
             // Disable column resizing
             e.Cancel = true;
             e.NewWidth = listViewRanges.Columns[e.ColumnIndex].Width;
+        }
+
+        private void contextMenuStripRegions_Opening(object sender, CancelEventArgs e)
+        {
+            copyToolStripMenuItem.Enabled = listViewRanges.SelectedItems.Count > 0;
+            searchRegionToolStripMenuItem.Enabled = listViewRanges.SelectedItems.Count == 1;
         }
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -124,6 +169,13 @@ namespace MEMAPI_Debugger.Forms
             toCopy = toCopy.TrimEnd(new char[] { '\r', '\n' });
             if (toCopy != null && toCopy != "")
                 Clipboard.SetText(toCopy);
+        }
+
+        private void searchRegionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListViewSubItemCollection items = listViewRanges.SelectedItems[0].SubItems;
+            textBoxFrom.Text = "0x" + items[0].Text.TrimStart(new char[] { '0' });
+            textBoxTo.Text = "0x" + items[1].Text.TrimStart(new char[] { '0' });
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -163,6 +215,7 @@ namespace MEMAPI_Debugger.Forms
                 {
                     case 0:
                         variable = Helper.stringToByteArray(textBoxValue.Text.Replace(" ", ""));
+                        searchValueLength = variable.Length;
                         lastSearchType = typeof(byte[]);
                         break;
                     case 1:
@@ -211,10 +264,12 @@ namespace MEMAPI_Debugger.Forms
 
             dynamic newVariable = Convert.ChangeType(variable, lastSearchType);
             API.search(start, end, newVariable);
+
             int numResults = API.getResultsCount();
             labelResultCount.Text = "Results: " + numResults.ToString();
+            buttonRefreshResults.Enabled = numResults < 100;
             if (numResults < 100)
-                refreshResults();
+                refreshResults(textBoxValue.Text);
             buttonSearchResult.Enabled = true;
         }
 
@@ -284,8 +339,62 @@ namespace MEMAPI_Debugger.Forms
             API.rescan(newVariable);
             int numResults = API.getResultsCount();
             labelResultCount.Text = "Results: " + numResults.ToString();
+            buttonRefreshResults.Enabled = numResults < 100;
+            if (numResults < 100)
+                refreshResults(textBoxValue.Text);
+        }
+
+        private void buttonRefreshResults_Click(object sender, EventArgs e)
+        {
+            int numResults = API.getResultsCount();
+            labelResultCount.Text = "Results: " + numResults.ToString();
             if (numResults < 100)
                 refreshResults();
+        }
+
+        private void contextMenuStripResults_Opening(object sender, CancelEventArgs e)
+        {
+            copyToolStripMenuItem1.Enabled = listViewResults.SelectedItems.Count > 0;
+            copyAddressToolStripMenuItem.Enabled = listViewResults.SelectedItems.Count > 0;
+            copyValueToolStripMenuItem.Enabled = listViewResults.SelectedItems.Count > 0;
+        }
+
+        private void copyToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            string toCopy = "";
+            foreach (ListViewItem item in listViewResults.SelectedItems)
+            {
+                foreach (ListViewSubItem subitem in item.SubItems)
+                    toCopy += subitem.Text + "\t";
+                toCopy = toCopy.TrimEnd(new char[] { '\t' });
+                toCopy += "\r\n";
+            }
+
+            toCopy = toCopy.TrimEnd(new char[] { '\r', '\n' });
+            if (toCopy != null && toCopy != "")
+                Clipboard.SetText(toCopy);
+        }
+
+        private void copyAddressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string toCopy = "";
+            foreach (ListViewItem item in listViewResults.SelectedItems)
+                toCopy += item.SubItems[0].Text + "\r\n";
+
+            toCopy = toCopy.TrimEnd(new char[] { '\r', '\n' });
+            if (toCopy != null && toCopy != "")
+                Clipboard.SetText(toCopy);
+        }
+
+        private void copyValueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string toCopy = "";
+            foreach (ListViewItem item in listViewResults.SelectedItems)
+                toCopy += item.SubItems[1].Text + "\r\n";
+
+            toCopy = toCopy.TrimEnd(new char[] { '\r', '\n' });
+            if (toCopy != null && toCopy != "")
+                Clipboard.SetText(toCopy);
         }
     }
 }

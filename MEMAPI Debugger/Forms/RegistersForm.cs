@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MEMAPI_Debugger.Dialogs;
-using MEMAPI_Debugger.MEMAPI;
+using MEMAPI;
 
 namespace MEMAPI_Debugger.Forms
 {

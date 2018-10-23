@@ -45,7 +45,7 @@
             this.radioButtonExecute.Location = new System.Drawing.Point(66, 65);
             this.radioButtonExecute.Name = "radioButtonExecute";
             this.radioButtonExecute.Size = new System.Drawing.Size(64, 17);
-            this.radioButtonExecute.TabIndex = 0;
+            this.radioButtonExecute.TabIndex = 2;
             this.radioButtonExecute.TabStop = true;
             this.radioButtonExecute.Text = "Execute";
             this.radioButtonExecute.UseVisualStyleBackColor = true;
@@ -57,7 +57,7 @@
             this.radioButtonReadWrite.Location = new System.Drawing.Point(139, 65);
             this.radioButtonReadWrite.Name = "radioButtonReadWrite";
             this.radioButtonReadWrite.Size = new System.Drawing.Size(87, 17);
-            this.radioButtonReadWrite.TabIndex = 1;
+            this.radioButtonReadWrite.TabIndex = 3;
             this.radioButtonReadWrite.TabStop = true;
             this.radioButtonReadWrite.Text = "Read / Write";
             this.radioButtonReadWrite.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@
             this.radioButtonWrite.Location = new System.Drawing.Point(237, 65);
             this.radioButtonWrite.Name = "radioButtonWrite";
             this.radioButtonWrite.Size = new System.Drawing.Size(50, 17);
-            this.radioButtonWrite.TabIndex = 2;
+            this.radioButtonWrite.TabIndex = 4;
             this.radioButtonWrite.TabStop = true;
             this.radioButtonWrite.Text = "Write";
             this.radioButtonWrite.UseVisualStyleBackColor = true;
@@ -78,7 +78,7 @@
             this.textBoxAddress.Location = new System.Drawing.Point(66, 12);
             this.textBoxAddress.Name = "textBoxAddress";
             this.textBoxAddress.Size = new System.Drawing.Size(223, 20);
-            this.textBoxAddress.TabIndex = 3;
+            this.textBoxAddress.TabIndex = 0;
             // 
             // comboBoxLength
             // 
@@ -91,7 +91,7 @@
             this.comboBoxLength.Location = new System.Drawing.Point(66, 38);
             this.comboBoxLength.Name = "comboBoxLength";
             this.comboBoxLength.Size = new System.Drawing.Size(221, 21);
-            this.comboBoxLength.TabIndex = 4;
+            this.comboBoxLength.TabIndex = 1;
             // 
             // labelAddress
             // 
@@ -117,7 +117,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(214, 88);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 8;
+            this.buttonCancel.TabIndex = 6;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -126,7 +126,7 @@
             this.buttonAdd.Location = new System.Drawing.Point(66, 88);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd.TabIndex = 7;
+            this.buttonAdd.TabIndex = 5;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);

@@ -56,7 +56,7 @@
             this.listViewBreakpoints.MultiSelect = false;
             this.listViewBreakpoints.Name = "listViewBreakpoints";
             this.listViewBreakpoints.Size = new System.Drawing.Size(400, 194);
-            this.listViewBreakpoints.TabIndex = 4;
+            this.listViewBreakpoints.TabIndex = 0;
             this.listViewBreakpoints.UseCompatibleStateImageBehavior = false;
             this.listViewBreakpoints.View = System.Windows.Forms.View.Details;
             // 
@@ -118,7 +118,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(216, 219);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 9;
+            this.buttonCancel.TabIndex = 2;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -127,7 +127,7 @@
             this.buttonOk.Location = new System.Drawing.Point(135, 219);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
-            this.buttonOk.TabIndex = 8;
+            this.buttonOk.TabIndex = 1;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);

@@ -18,6 +18,14 @@ namespace MEMAPI_Debugger
             return output;
         }
 
+        public static string longToString(long input, bool padding = true)
+        {
+            string output = input.ToString("x").ToUpper();
+            if (padding)
+                output = output.PadLeft(16, '0');
+            return output;
+        }
+
         public static string uintToString(uint input, bool padding = true)
         {
             string output = input.ToString("x").ToUpper();

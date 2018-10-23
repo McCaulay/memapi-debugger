@@ -29,16 +29,23 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchForm));
             this.listViewRanges = new System.Windows.Forms.ListView();
             this.columnHeaderStart = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderEnd = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripRegions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchRegionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewResults = new System.Windows.Forms.ListView();
             this.columnHeaderAddress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStripResults = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.buttonRefreshResults = new System.Windows.Forms.Button();
             this.labelResultCount = new System.Windows.Forms.Label();
             this.buttonSearchResult = new System.Windows.Forms.Button();
             this.buttonSearch = new System.Windows.Forms.Button();
@@ -47,6 +54,7 @@
             this.comboBoxType = new System.Windows.Forms.ComboBox();
             this.textBoxValue = new System.Windows.Forms.TextBox();
             this.contextMenuStripRegions.SuspendLayout();
+            this.contextMenuStripResults.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -86,27 +94,37 @@
             // contextMenuStripRegions
             // 
             this.contextMenuStripRegions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyToolStripMenuItem});
+            this.copyToolStripMenuItem,
+            this.searchRegionToolStripMenuItem});
             this.contextMenuStripRegions.Name = "contextMenuStripRegions";
-            this.contextMenuStripRegions.Size = new System.Drawing.Size(145, 26);
+            this.contextMenuStripRegions.Size = new System.Drawing.Size(150, 48);
+            this.contextMenuStripRegions.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripRegions_Opening);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.copyToolStripMenuItem.Text = "Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // searchRegionToolStripMenuItem
+            // 
+            this.searchRegionToolStripMenuItem.Name = "searchRegionToolStripMenuItem";
+            this.searchRegionToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.searchRegionToolStripMenuItem.Text = "Search Region";
+            this.searchRegionToolStripMenuItem.Click += new System.EventHandler(this.searchRegionToolStripMenuItem_Click);
             // 
             // listViewResults
             // 
             this.listViewResults.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderAddress,
             this.columnHeaderValue});
+            this.listViewResults.ContextMenuStrip = this.contextMenuStripResults;
             this.listViewResults.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewResults.Location = new System.Drawing.Point(0, 0);
             this.listViewResults.Name = "listViewResults";
-            this.listViewResults.Size = new System.Drawing.Size(357, 500);
+            this.listViewResults.Size = new System.Drawing.Size(357, 480);
             this.listViewResults.TabIndex = 2;
             this.listViewResults.UseCompatibleStateImageBehavior = false;
             this.listViewResults.View = System.Windows.Forms.View.Details;
@@ -120,6 +138,38 @@
             // 
             this.columnHeaderValue.Text = "Value";
             this.columnHeaderValue.Width = 205;
+            // 
+            // contextMenuStripResults
+            // 
+            this.contextMenuStripResults.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem1,
+            this.copyAddressToolStripMenuItem,
+            this.copyValueToolStripMenuItem});
+            this.contextMenuStripResults.Name = "contextMenuStripResults";
+            this.contextMenuStripResults.Size = new System.Drawing.Size(148, 70);
+            this.contextMenuStripResults.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripResults_Opening);
+            // 
+            // copyToolStripMenuItem1
+            // 
+            this.copyToolStripMenuItem1.Name = "copyToolStripMenuItem1";
+            this.copyToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.copyToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.copyToolStripMenuItem1.Text = "Copy";
+            this.copyToolStripMenuItem1.Click += new System.EventHandler(this.copyToolStripMenuItem1_Click);
+            // 
+            // copyAddressToolStripMenuItem
+            // 
+            this.copyAddressToolStripMenuItem.Name = "copyAddressToolStripMenuItem";
+            this.copyAddressToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.copyAddressToolStripMenuItem.Text = "Copy Address";
+            this.copyAddressToolStripMenuItem.Click += new System.EventHandler(this.copyAddressToolStripMenuItem_Click);
+            // 
+            // copyValueToolStripMenuItem
+            // 
+            this.copyValueToolStripMenuItem.Name = "copyValueToolStripMenuItem";
+            this.copyValueToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.copyValueToolStripMenuItem.Text = "Copy Value";
+            this.copyValueToolStripMenuItem.Click += new System.EventHandler(this.copyValueToolStripMenuItem_Click);
             // 
             // splitContainer1
             // 
@@ -151,6 +201,7 @@
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.buttonRefreshResults);
             this.splitContainer2.Panel2.Controls.Add(this.labelResultCount);
             this.splitContainer2.Panel2.Controls.Add(this.buttonSearchResult);
             this.splitContainer2.Panel2.Controls.Add(this.buttonSearch);
@@ -159,8 +210,19 @@
             this.splitContainer2.Panel2.Controls.Add(this.comboBoxType);
             this.splitContainer2.Panel2.Controls.Add(this.textBoxValue);
             this.splitContainer2.Size = new System.Drawing.Size(357, 620);
-            this.splitContainer2.SplitterDistance = 500;
+            this.splitContainer2.SplitterDistance = 480;
             this.splitContainer2.TabIndex = 3;
+            // 
+            // buttonRefreshResults
+            // 
+            this.buttonRefreshResults.Enabled = false;
+            this.buttonRefreshResults.Location = new System.Drawing.Point(7, 106);
+            this.buttonRefreshResults.Name = "buttonRefreshResults";
+            this.buttonRefreshResults.Size = new System.Drawing.Size(336, 23);
+            this.buttonRefreshResults.TabIndex = 6;
+            this.buttonRefreshResults.Text = "Refresh Results";
+            this.buttonRefreshResults.UseVisualStyleBackColor = true;
+            this.buttonRefreshResults.Click += new System.EventHandler(this.buttonRefreshResults_Click);
             // 
             // labelResultCount
             // 
@@ -246,9 +308,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(620, 620);
             this.Controls.Add(this.splitContainer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SearchForm";
             this.Text = "Search";
             this.contextMenuStripRegions.ResumeLayout(false);
+            this.contextMenuStripResults.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -281,5 +345,11 @@
         private System.Windows.Forms.TextBox textBoxTo;
         private System.Windows.Forms.TextBox textBoxFrom;
         private System.Windows.Forms.Label labelResultCount;
+        private System.Windows.Forms.ToolStripMenuItem searchRegionToolStripMenuItem;
+        private System.Windows.Forms.Button buttonRefreshResults;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripResults;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem copyAddressToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyValueToolStripMenuItem;
     }
 }

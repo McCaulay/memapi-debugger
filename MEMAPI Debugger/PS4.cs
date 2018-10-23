@@ -1,4 +1,4 @@
-﻿using MEMAPI_Debugger.MEMAPI;
+﻿using MEMAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;

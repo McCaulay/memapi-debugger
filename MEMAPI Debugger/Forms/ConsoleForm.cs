@@ -22,11 +22,8 @@ namespace MEMAPI_Debugger.Forms
 
             // Custom Font
             consoleOutput.Font = Resource.getCustomFont(Resource.monospace);
-
             MEMAPI.Server.ServerQueueUpdated += c_ServerQueueUpdated;
         }
-
-        
 
         private void c_ServerQueueUpdated(object sender, EventArgs e)
         {

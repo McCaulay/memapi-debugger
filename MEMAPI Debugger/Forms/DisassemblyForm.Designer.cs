@@ -91,7 +91,7 @@
             this.goToAddressToolStripMenuItem,
             this.goToInstructionPointerToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(198, 164);
+            this.contextMenuStrip.Size = new System.Drawing.Size(198, 142);
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
             // copyToolStripMenuItem
@@ -158,6 +158,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(629, 539);
             this.Controls.Add(this.listView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DisassemblyForm";
             this.Text = "Disassembly";
             this.contextMenuStrip.ResumeLayout(false);
