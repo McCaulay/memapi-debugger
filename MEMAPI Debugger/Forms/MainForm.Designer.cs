@@ -151,30 +151,34 @@
             // 
             this.newProjectToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newProjectToolStripMenuItem.Image")));
             this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
-            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newProjectToolStripMenuItem.Text = "New Project";
+            this.newProjectToolStripMenuItem.Visible = false;
             this.newProjectToolStripMenuItem.Click += new System.EventHandler(this.newProjectToolStripMenuItem_Click);
             // 
             // loadProjectToolStripMenuItem
             // 
             this.loadProjectToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("loadProjectToolStripMenuItem.Image")));
             this.loadProjectToolStripMenuItem.Name = "loadProjectToolStripMenuItem";
-            this.loadProjectToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.loadProjectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadProjectToolStripMenuItem.Text = "Load Project";
+            this.loadProjectToolStripMenuItem.Visible = false;
             this.loadProjectToolStripMenuItem.Click += new System.EventHandler(this.loadProjectToolStripMenuItem_Click);
             // 
             // closeProjectToolStripMenuItem
             // 
             this.closeProjectToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("closeProjectToolStripMenuItem.Image")));
             this.closeProjectToolStripMenuItem.Name = "closeProjectToolStripMenuItem";
-            this.closeProjectToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.closeProjectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.closeProjectToolStripMenuItem.Text = "Close Project";
+            this.closeProjectToolStripMenuItem.Visible = false;
             this.closeProjectToolStripMenuItem.Click += new System.EventHandler(this.closeProjectToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(155, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Visible = false;
             // 
             // saveProjectToolStripMenuItemList
             // 
@@ -183,14 +187,15 @@
             this.saveProjectAsToolStripMenuItem});
             this.saveProjectToolStripMenuItemList.Enabled = false;
             this.saveProjectToolStripMenuItemList.Name = "saveProjectToolStripMenuItemList";
-            this.saveProjectToolStripMenuItemList.Size = new System.Drawing.Size(158, 22);
+            this.saveProjectToolStripMenuItemList.Size = new System.Drawing.Size(180, 22);
             this.saveProjectToolStripMenuItemList.Text = "Save...";
+            this.saveProjectToolStripMenuItemList.Visible = false;
             // 
             // saveProjectToolStripMenuItem
             // 
             this.saveProjectToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveProjectToolStripMenuItem.Image")));
             this.saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
-            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveProjectToolStripMenuItem.Text = "Save Project";
             this.saveProjectToolStripMenuItem.Click += new System.EventHandler(this.saveProjectToolStripMenuItem_Click);
             // 
@@ -198,33 +203,36 @@
             // 
             this.saveProjectAsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveProjectAsToolStripMenuItem.Image")));
             this.saveProjectAsToolStripMenuItem.Name = "saveProjectAsToolStripMenuItem";
-            this.saveProjectAsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.saveProjectAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveProjectAsToolStripMenuItem.Text = "Save Project As...";
             this.saveProjectAsToolStripMenuItem.Click += new System.EventHandler(this.saveProjectAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(155, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Visible = false;
             // 
             // recentProjectsToolStripMenuItem
             // 
             this.recentProjectsToolStripMenuItem.Enabled = false;
             this.recentProjectsToolStripMenuItem.Name = "recentProjectsToolStripMenuItem";
-            this.recentProjectsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.recentProjectsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.recentProjectsToolStripMenuItem.Text = " Recent Projects";
+            this.recentProjectsToolStripMenuItem.Visible = false;
             this.recentProjectsToolStripMenuItem.Click += new System.EventHandler(this.recentProjectsToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(155, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Visible = false;
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -589,6 +597,7 @@
             this.toolStripButtonNewProject.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonNewProject.Text = "New Project";
             this.toolStripButtonNewProject.ToolTipText = "New Project";
+            this.toolStripButtonNewProject.Visible = false;
             this.toolStripButtonNewProject.Click += new System.EventHandler(this.toolStripButtonNewProject_Click);
             // 
             // toolStripButtonLoadProject
@@ -599,6 +608,7 @@
             this.toolStripButtonLoadProject.Name = "toolStripButtonLoadProject";
             this.toolStripButtonLoadProject.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonLoadProject.Text = "Load Project";
+            this.toolStripButtonLoadProject.Visible = false;
             this.toolStripButtonLoadProject.Click += new System.EventHandler(this.toolStripButtonLoadProject_Click);
             // 
             // toolStripButtonSave
@@ -611,12 +621,14 @@
             this.toolStripButtonSave.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonSave.Text = "Save";
             this.toolStripButtonSave.ToolTipText = "Save";
+            this.toolStripButtonSave.Visible = false;
             this.toolStripButtonSave.Click += new System.EventHandler(this.toolStripButtonSave_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator7.Visible = false;
             // 
             // toolStripButtonPlay
             // 
